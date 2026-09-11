@@ -5,6 +5,8 @@
 
 原文地址：<https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash>
 
+**在线浏览（GitHub Pages）**：<https://moonquake2004.github.io/deepseek-v41-flash-zh/>
+
 ---
 
 ## 1. 文件清单
