@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DeepSeek-V4.1-Flash 技术报告 · 中文译本 / 中英对照版</title>
+<title>DeepSeek-V4.1-Flash 技术报告 · 原版 / 中英对照 / 中文译本</title>
 <style>
   :root{
     --bg:#f5f7fa; --card:#ffffff; --ink:#111827; --sub:#5b6573;
@@ -13,28 +13,33 @@
   body{margin:0;background:var(--bg);color:var(--ink);
        font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
        -webkit-font-smoothing:antialiased;line-height:1.65}
-  .wrap{max-width:880px;margin:0 auto;padding:48px 22px 72px}
+  .wrap{max-width:920px;margin:0 auto;padding:48px 22px 72px}
   header{margin-bottom:34px}
   .badge{display:inline-block;font-size:12.5px;letter-spacing:.06em;color:var(--blue);
          background:var(--blue-soft);border:1px solid #dbe2ff;border-radius:999px;padding:4px 12px}
   h1{font-size:30px;line-height:1.3;margin:16px 0 8px;letter-spacing:-.01em}
   .sub{color:var(--sub);font-size:15px}
   .sub code{background:#eef1f5;padding:1px 6px;border-radius:5px;font-size:13.5px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 8px}
-  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  h2.sec{font-size:14px;letter-spacing:.08em;color:var(--sub);text-transform:uppercase;
+         margin:34px 0 12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:660px){.grid{grid-template-columns:1fr}}
   a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;
          padding:20px 22px;text-decoration:none;color:inherit;
          transition:border-color .15s,box-shadow .15s,transform .15s}
   a.card:hover{border-color:#c7ceff;box-shadow:0 6px 22px rgba(77,107,254,.10);transform:translateY(-2px)}
+  a.card.primary{border-color:#c7ceff;background:linear-gradient(180deg,#fbfcff,#ffffff)}
   a.card .tag{font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.04em}
-  a.card h2{font-size:17px;margin:6px 0 6px}
+  a.card h3{font-size:17px;margin:6px 0 6px}
   a.card p{margin:0;font-size:13.5px;color:var(--sub)}
-  .meta{margin-top:26px;border-top:1px solid var(--line);padding-top:22px;
+  .links{display:flex;gap:14px;margin-top:12px;font-size:13px;flex-wrap:wrap}
+  .links a{color:var(--blue);text-decoration:none;border-bottom:1px solid #c7ceff}
+  .meta{margin-top:34px;border-top:1px solid var(--line);padding-top:22px;
         display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:13.5px;color:var(--sub)}
-  @media(max-width:640px){.meta{grid-template-columns:1fr}}
+  @media(max-width:660px){.meta{grid-template-columns:1fr}}
   .meta b{color:var(--ink);font-weight:600}
   .note{margin-top:26px;background:#fffbeb;border-left:3px solid #f59e0b;border-radius:8px;
-        padding:14px 16px;font-size:13.5px;color:#78350f}
+        padding:14px 16px;font-size:13.5px;color:#78350f;line-height:1.7}
   .note b{color:#92400e}
   footer{margin-top:34px;font-size:12.5px;color:#8b95a3}
 </style>
@@ -43,34 +48,52 @@
 <div class="wrap">
 
   <header>
-    <span class="badge">非官方中文翻译</span>
+    <span class="badge">非官方译本 · 含官方原文</span>
     <h1>DeepSeek-V4.1-Flash 技术报告</h1>
     <div class="sub">
-      原文 <code>DeepSeek-V4.1-Flash Technical Report</code>（DeepSeek-AI，51 页 A4）<br>
-      提供逐段中英对照版与中文全译本两种排版
+      原文 <code>DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression</code>（DeepSeek-AI，51 页 A4）<br>
+      共 4 个版本：官方英文原版 · 英文重排版 · 中英对照版 · 中文全译本
     </div>
   </header>
 
+  <h2 class="sec">官方原文</h2>
+  <a class="card primary" href="pdf/DeepSeek-V4.1-Flash-Technical-Report-Original.pdf">
+    <span class="tag">PDF · 51 页 · 权威版本</span>
+    <h3>DeepSeek-V4.1-Flash Technical Report（Official）</h3>
+    <p>DeepSeek-AI 原始排版。技术细节、公式排版与分页的最终依据。</p>
+  </a>
+
+  <h2 class="sec">衍生版本</h2>
   <div class="grid">
-    <a class="card" href="pdf/DeepSeek-V4.1-Flash-技术报告-中英对照版.pdf">
-      <span class="tag">主交付物 · PDF · 52 页</span>
-      <h2>中英对照版</h2>
-      <p>英文原段在上、中文译文在下，逐段对照；128 组对照块，图 1–10，表 1–4</p>
+    <a class="card" href="pdf/DeepSeek-V4.1-Flash-Technical-Report-English.pdf">
+      <span class="tag">PDF · 38 页 · 全文含附录</span>
+      <h3>英文重排版</h3>
+      <p>文字/图/表重排为网页与打印友好版式；表格加粗与下划线按原 PDF 字体与矢量数据还原（图 1–12、表 1–5）</p>
     </a>
     <a class="card" href="pdf/DeepSeek-V4.1-Flash-技术报告-中文译本.pdf">
-      <span class="tag">PDF · 48 页</span>
-      <h2>中文全译本</h2>
-      <p>纯中文排版，含附录 A/B/C 与参考文献；图 1–12，表 1–5</p>
+      <span class="tag">PDF · 48 页 · 全文含附录</span>
+      <h3>中文全译本</h3>
+      <p>纯中文排版。附录 A（作者名单）/ B / C 与参考文献完整收录（图 1–12、表 1–5）</p>
     </a>
-    <a class="card" href="DeepSeek-V4.1-Flash-技术报告-中英对照.html">
-      <span class="tag">网页版</span>
-      <h2>对照版 HTML</h2>
-      <p>浏览器直接阅读，排版随窗口自适应</p>
+    <a class="card" href="pdf/DeepSeek-V4.1-Flash-技术报告-中英对照版.pdf">
+      <span class="tag">PDF · 52 页 · 摘要 + 第 1–6 章</span>
+      <h3>中英对照版</h3>
+      <p>英文原段在上、中文译文在下，逐段对照；128 组对照块（图 1–10、表 1–4）</p>
+    </a>
+    <a class="card" href="DeepSeek-V4.1-Flash-Technical-Report-English.html">
+      <span class="tag">网页版 · 英文</span>
+      <h3>English（HTML）</h3>
+      <p>浏览器直接阅读，随窗口自适应；支持站内检索（⌘/Ctrl+F）</p>
     </a>
     <a class="card" href="DeepSeek-V4.1-Flash-技术报告-中文译本.html">
-      <span class="tag">网页版</span>
-      <h2>中文全译本 HTML</h2>
-      <p>含附录与参考文献，适合站内检索（⌘/Ctrl+F）</p>
+      <span class="tag">网页版 · 中文</span>
+      <h3>中文全译本（HTML）</h3>
+      <p>含附录与参考文献，适合站内检索</p>
+    </a>
+    <a class="card" href="DeepSeek-V4.1-Flash-技术报告-中英对照.html">
+      <span class="tag">网页版 · 中英对照</span>
+      <h3>中英对照版（HTML）</h3>
+      <p>逐段对照，便于核对术语与原文表述</p>
     </a>
   </div>
 
@@ -78,17 +101,19 @@
     <div><b>原文来源</b>　huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash</div>
     <div><b>译本生成</b>　2026 年 9 月 11 日</div>
     <div><b>对照版范围</b>　摘要 + 第 1–6 章正文</div>
-    <div><b>英文正文</b>　取自原 PDF，未作改动</div>
+    <div><b>英文正文</b>　取自原 PDF，未作改写</div>
   </div>
 
   <div class="note">
-    <b>阅读提示：</b>对照版不含附录，附录 A（作者名单）、附录 B/C（含图 11–12、表 5）与参考文献请见中文全译本。
+    <b>阅读提示：</b>三个衍生版本的<b>公式为 Unicode 近似</b>（复杂分式、上下标建议对照官方原版 PDF）；
+    附录 C 中个别公式块因原 PDF 文档顺序与阅读顺序不一致，重排后位置略有出入。
+    中英对照版不含附录（附录 A/B/C 与参考文献见其余版本）。
     原 PDF 的段落仅靠首行缩进区分，重建后个别位置的段落边界可能与原排版略有差异，但内容顺序与信息完整性一致。
   </div>
 
   <footer>
-    原报告著作权归 DeepSeek-AI 所有 · 本译本仅供学习与技术交流，不得用于商业用途 ·
-    技术细节请以英文原报告为准
+    原报告著作权归 DeepSeek-AI 所有 · 非官方译本与重排版仅供学习与技术交流，不得用于商业用途 ·
+    技术细节请以官方英文原版为准
   </footer>
 
 </div>

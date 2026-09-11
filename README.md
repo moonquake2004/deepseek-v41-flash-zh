@@ -1,66 +1,100 @@
-# DeepSeek-V4.1-Flash 技术报告 · 中英对照版 / 中文译本
+# DeepSeek-V4.1-Flash 技术报告 · 中英对照版 / 中文译本 / 英文重排版
 
-> **非官方翻译**。原文为 DeepSeek-AI 发布的 *DeepSeek-V4.1-Flash Technical Report*（51 页，A4）。
-> 本仓库提供**逐段中英对照版**与**中文全译本**两种排版，供中文读者核对术语与原文表述。
+> 收录 **DeepSeek-AI** 发布的 *DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression*（51 页，A4）的
+> **官方英文原版 PDF**，以及据此制作的三个衍生版本：**中英对照版**、**中文全译本**、**英文重排版**（HTML + PDF）。
 
 原文地址：<https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash>
-
 **在线浏览（GitHub Pages）**：<https://moonquake2004.github.io/deepseek-v41-flash-zh/>
 
 ---
 
-## 1. 文件清单
+## 1. 四个版本
 
-| 文件 | 页数 | 收录范围 | 说明 |
-|---|---|---|---|
-| [`pdf/DeepSeek-V4.1-Flash-技术报告-中英对照版.pdf`](pdf/DeepSeek-V4.1-Flash-技术报告-中英对照版.pdf) | 52 | 摘要 + 第 1–6 章 | **主交付物**。英文原段在上（蓝色竖线），中文译文在下；128 组对照块，图 1–10，表 1–4 |
-| [`pdf/DeepSeek-V4.1-Flash-技术报告-中文译本.pdf`](pdf/DeepSeek-V4.1-Flash-技术报告-中文译本.pdf) | 48 | 全文含附录 | 纯中文排版，含附录 A（作者名单）/ B / C 与参考文献，图 1–12，表 1–5 |
-| [`DeepSeek-V4.1-Flash-技术报告-中英对照.html`](DeepSeek-V4.1-Flash-技术报告-中英对照.html) | — | 同上 | 对照版网页源文件，可直接用浏览器打开 |
-| [`DeepSeek-V4.1-Flash-技术报告-中文译本.html`](DeepSeek-V4.1-Flash-技术报告-中文译本.html) | — | 同上 | 中文全译本网页源文件 |
-| `figs/` | — | — | 从原 PDF 提取的 12 幅插图（PNG） |
-| `scripts/` | — | — | 生成用脚本（提取英文段落 / 逐段对齐 / 自动裁图） |
+| 版本 | PDF | 页数 | 收录范围 | 特点 |
+|---|---|---|---|---|
+| **官方英文原版**<br>Original | [`pdf/…-Original.pdf`](pdf/DeepSeek-V4.1-Flash-Technical-Report-Original.pdf) | 51 | 全文 | DeepSeek-AI 原始排版，**技术细节与公式的权威依据** |
+| **英文重排版**<br>English | [`pdf/…-English.pdf`](pdf/DeepSeek-V4.1-Flash-Technical-Report-English.pdf) | 38 | 全文含附录 | 文字、图、表重排为网页/打印友好的版式；表格加粗与下划线由原 PDF 字体与矢量数据还原 |
+| **中英对照版**<br>Bilingual | [`pdf/…-中英对照版.pdf`](pdf/DeepSeek-V4.1-Flash-技术报告-中英对照版.pdf) | 52 | 摘要 + 第 1–6 章 | 英文原段在上、中文译文在下，逐段对照（128 组）；图 1–10、表 1–4 |
+| **中文全译本**<br>中文 | [`pdf/…-中文译本.pdf`](pdf/DeepSeek-V4.1-Flash-技术报告-中文译本.pdf) | 48 | 全文含附录 | 纯中文排版；附录 A（作者名单）/ B / C 与参考文献完整收录，图 1–12、表 1–5 |
+
+三种版本都提供网页版（HTML），可直接用浏览器打开、检索：
+
+| 网页版 | 文件 |
+|---|---|
+| 英文重排版 | [`DeepSeek-V4.1-Flash-Technical-Report-English.html`](DeepSeek-V4.1-Flash-Technical-Report-English.html) |
+| 中英对照版 | [`DeepSeek-V4.1-Flash-技术报告-中英对照.html`](DeepSeek-V4.1-Flash-技术报告-中英对照.html) |
+| 中文全译本 | [`DeepSeek-V4.1-Flash-技术报告-中文译本.html`](DeepSeek-V4.1-Flash-技术报告-中文译本.html) |
 
 网页版依赖同目录下的 `figs/`，请保持目录结构完整。
 
 ---
 
-## 2. 排版方式
+## 2. 内容与保真度
 
-- **中英对照版**：每个自然段为一组「英文原文 + 中文译文」，英文段落左侧有蓝色竖线便于区分；章节标题中英并列。
-- **中文全译本**：整段中文排版，公式、图表编号与原文一一对应；附录 A 作者名单与参考文献按惯例保留英文。
-- 英文正文取自原报告 PDF，**未作任何改动**；中文为对应的完整译文。
+- **英文正文、表头、表内数据、图注**均从原 PDF 提取，**未作改写**。
+- **表格中的加粗与下划线**不是按规则猜的：加粗取自 PDF 的字体信息（`URWPalladioL-Bold`），
+  下划线取自 PDF 的矢量线段（短横线），两者都已与原版逐行核对。
+  例：表 1 中 `DROP (F1)` 行的 88.6 与 88.7 同时加粗（同一水平，0.3 分差规则），而 87.9 既不加粗也不加下划线 —— 与原版一致。
+- **插图**为从原 PDF 按图注位置裁切所得的原始位图（12 幅）。
+- **段落结构**按 PDF 的文本块（block）还原 —— 该 PDF 的段落仅靠首行缩进区分，`pdftotext -layout` 不保留缩进，所以必须用 `-bbox-layout` 的 block 结构。
+
+### 已知差异（三个衍生版本共有）
+
+1. **公式为 Unicode 近似**：正文行内公式与附录 C 的推导式以 Unicode 数学字符近似还原，复杂排版公式（分式、上下标对齐）
+   建议对照**官方原版 PDF**。
+2. **附录 C 的公式顺序**：PDF 中公式块与正文块的文档顺序并不总是阅读顺序，重排后个别公式会出现在其所解释的句子之前；
+   内容完整，但阅读顺序与原文略有出入。
+3. **中英对照版不含附录**：对照版覆盖摘要 + 第 1–6 章（图 1–10、表 1–4）；附录 A/B/C（含图 11–12、表 5）与参考文献见其余版本。
+4. **中英对照版的段落边界**：英文按 PDF 文本块切分、中文按自然段切分，个别位置的切分点与原排版略有差异，内容顺序与信息完整性一致。
+5. 译文中的模型名、基准名、数据集名保留英文原写法。
 
 ---
 
-## 3. 收录范围与已知差异
+## 3. 生成流程
 
-1. **对照版不含附录**：对照版覆盖摘要 + 第 1–6 章正文（图 1–10、表 1–4）。附录 A/B/C（含图 11–12、表 5）与参考文献见中文全译本。
-2. **个别段落边界与原文排版略有差异**：原 PDF 的段落仅靠首行缩进区分，且部分段落被图表跨页截断，重建后个别位置（如 2.4.1 节一处公式行）的段落切分点可能与原排版不同，**内容顺序与信息完整性一致**。
-3. **公式与符号**：正文行内公式（如 `Aₗ ∈ R^(d×r)`）以 Unicode 近似还原，复杂排版公式建议对照原文 PDF。
-4. 译文中的模型名、基准名、数据集名保留英文原写法，未作翻译。
+```
+官方原版 PDF
+ ├─ pdftotext -bbox-layout   → 按 <block> 还原自然段
+ ├─ pdftoppm -png + crop_figs.py   → 按「图注 + 最近两端对齐正文行」自动裁图（12 幅）
+ ├─ PyMuPDF                  → 表格：单元格文本 + 字体（加粗）+ 矢量线段（下划线）
+ ↓
+extract_en.py / extract_en_full.py   英文段落提取（含图表内部文字噪声过滤）
+extract_tables.py                    表格结构化（表 1–5 → JSON）
+ ↓
+build_bilingual.py   锚点 DP 对齐英中段落 → 中英对照 HTML
+build_en.py          英文重排版 HTML
+ ↓
+Chrome headless --print-to-pdf  → 各版本 PDF
+```
+
+关键经验：
+
+1. **段落提取不能用空行或缩进**，必须用 `-bbox-layout` 的 `<block>`；该 XML 含非法字符，不要用 ElementTree，用正则。
+2. **中英段落对齐不能按长度比例硬切**（会整段错位），要用「引用 / 术语 / 数字」锚点做保序 DP 对齐。
+3. **表格加粗不要用规则推导**：先用字体信息取真值。表 1 的 `DROP (F1)` 行就是反例 ——
+   按「次优加下划线」推导会误判 87.9。
+4. **表格下划线是矢量线段**，长度 4–45 pt 的是下划线，跨整列的是表格框线，用长度阈值区分。
 
 ---
 
-## 4. 生成流程
+## 4. 脚本
 
-```
-原 PDF
- ├─ pdftotext -bbox-layout   → 按 <block> 还原自然段（原 PDF 无空行分段，layout 模式不可用）
- ├─ pdftoppm -png            +  crop_figs.py 按「图注 + 最近两端对齐正文行」自动定位裁图
- ↓
-extract_en.py   提取英文段落清单（含图表内部文字噪声过滤）
- ↓
-build_bilingual.py  以「引用 / 术语 / 数字」为锚点做保序 DP 对齐（允许 1:2、2:1 合并），生成对照版 HTML
- ↓
-Chrome headless --print-to-pdf  → 中英对照版 PDF
-```
+| 文件 | 作用 |
+|---|---|
+| `scripts/extract_en.py` | 提取正文英文段落（block 结构 + 噪声过滤） |
+| `scripts/extract_en_full.py` | 同上，并额外提取参考文献与附录 A/B/C |
+| `scripts/extract_tables.py` | 表格结构化：加粗（字体）、下划线（矢量线）→ `tables.json` |
+| `scripts/crop_figs.py` | 按图注定位自动裁剪插图 |
+| `scripts/build_bilingual.py` | 锚点 DP 对齐 + 生成中英对照 HTML |
+| `scripts/build_en.py` | 生成英文重排版 HTML |
 
-关键经验：段落对齐不能按**长度比例**硬切（会造成整段错位），必须用锚点对齐——这一点是本仓库脚本与常见做法的最大区别。
+脚本按流水线顺序执行即可复现（需 poppler-utils、PyMuPDF、Pillow、Chrome）。
 
 ---
 
 ## 5. 免责声明
 
-- 原报告著作权归 **DeepSeek-AI** 所有，本仓库仅提供非官方中文翻译，**仅供学习与技术交流**，不得用于商业用途。
-- 译文可能存在理解偏差，涉及技术细节请以[英文原报告](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash)为准。
+- 原报告著作权归 **DeepSeek-AI** 所有。本仓库收录官方原文以方便查阅，并提供**非官方**的中文译本与重排版，
+  **仅供学习与技术交流**，不得用于商业用途。
+- 衍生版本的译文与重排可能存在偏差，**技术细节请以官方英文原版为准**；若官方要求，可随时移除。
 - 若有侵权，请联系删除。
