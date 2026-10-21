@@ -90,9 +90,30 @@ Chrome headless --print-to-pdf  → 各版本 PDF
 
 脚本按流水线顺序执行即可复现（需 poppler-utils、PyMuPDF、Pillow、Chrome）。
 
+### DeepInfer 文档生成
+
+| 文件 | 作用 |
+|---|---|
+| `scripts/build_deepinfer.py` | 翻译并生成《DeepSeek V4.1 Flash 推理部署技术问答》中英对照 HTML |
+
 ---
 
-## 5. 免责声明
+## 5. DeepInfer 推理部署技术问答（新增）
+
+> 译自 DeepSeek 开源推理框架 **DeepInfer** 仓库中的官方文档
+> [`doc/inference_deployment_qa.md`](https://github.com/deepseek-ai/DeepInfer/blob/main/doc/inference_deployment_qa.md)
+> （*DeepSeek V4.1 Flash Inference Deployment Q&A*）。该文档聚焦于 V4.1 Flash 的**推理部署架构**，
+> 并非模型技术报告 PDF。
+
+在线页面：[`DeepSeek-V4.1-Flash-推理部署技术问答-中英对照.html`](DeepSeek-V4.1-Flash-推理部署技术问答-中英对照.html)
+
+涵盖 12 节 Q&A：集群与存储、专家并行 / 数据并行负载均衡、KV 缓存存储与重计算、自动扩缩容与容错、低精度计算、算子实现、投机解码、异步调度、结构化输出、DeepSeek Recipe；含 2 张架构 / 性能图（取自原仓库 `doc/images/`）与 2 张数据表。
+
+保真度说明：英文原文取自官方文档，未作改写；中文为对照译文，专有名词保留英文并首次出现处给出中文译名。
+
+---
+
+## 6. 免责声明
 
 - 原报告著作权归 **DeepSeek-AI** 所有。本仓库收录官方原文以方便查阅，并提供**非官方**的中文译本与重排版，
   **仅供学习与技术交流**，不得用于商业用途。
