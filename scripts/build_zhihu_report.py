@@ -81,9 +81,13 @@ DOC.append(('list',
 "ul"))
 
 DOC.append(('h3', "线上系统的实际统计数据", "Online System Actual Statistics", "s1-2"))
+DOC.append(('fig',
+"figs/deepinfer-production_stats.png",
+"图 2 · 实际线上运行数据（取自原知乎文章）：Prefill / Decode / KVCache 缓存三组线上实测指标；机器已预留一定冗余度以应对流量波动。",
+"Figure 2 · Actual production operating data (from the original Zhihu post): online measured metrics for Prefill / Decode / KVCache caching; machines keep a certain degree of redundancy to absorb traffic fluctuations."))
 DOC.append(('note',
-"原文此处为性能图表（未提供文本）。下表据公开报道中披露的官方线上数据重建，仅供参照。",
-"""The original presented this as a performance chart (no text provided). The table below is reconstructed from officially reported online figures in public coverage and is for reference only."""))
+"上图即原文图表。下表为图内容的双语转录（数值与原图逐一核对一致），便于检索与对照。",
+"The figure above is the original chart. The table below is a bilingual transcription of its content (values verified one by one against the figure), provided for searchability and side-by-side reference."))
 DOC.append(('table',
 ["指标 Metric", "线上实测 Online measured"],
 ["Metric", "Online measured"],
@@ -95,7 +99,9 @@ DOC.append(('table',
  ["Prefill 平均输入长度", "77K tokens"],
  ["Decode 每卡吞吐", "14K tps"],
  ["Decode 吐字速度", "230 tps（代码场景 300 tps）"],
- ["KVCache 缓存不活跃后保存时间", "72 小时"]],
+ ["KVCache 缓存不活跃后保存时间", "72 小时"],
+ ["实际部署 P:D 比（不考虑波峰波谷）", "接近 1:1"],
+ ["整体收入", "平均每卡每小时 38 美金（按台价）"]],
 [["Prefill per-GPU throughput (cache miss)", "60K tps"],
  ["Prefill per-GPU throughput (cache hit)", "1.5M tps"],
  ["Prefill average input cache hit rate", "96%"],
@@ -104,12 +110,18 @@ DOC.append(('table',
  ["Prefill average input length", "77K tokens"],
  ["Decode per-GPU throughput", "14K tps"],
  ["Decode generation speed", "230 tps (300 tps for code)"],
- ["KVCache retention after inactivity", "72 hours"]]))
+ ["KVCache retention after inactivity", "72 hours"],
+ ["Actual deployed P:D ratio (excluding peak/off-peak)", "close to 1:1"],
+ ["Overall revenue", "on average $38 per GPU per hour (at list price)"]]))
 
 DOC.append(('h3', "离线性能基准测试数据", "Offline Performance Benchmark Data", "s1-3"))
 DOC.append(('p',
 "官方仓库提供离线基准：以 4 卡 SM100 做 Prefill、64 卡 SM100 做 Decode（各自在一个 scale-up 域内）测得，可用仓库内 `run_sweep.sh` 复现；评测基准见 `eval/README.md`。",
 """The official repository provides offline benchmarks: measured with 4 SM100 GPUs for Prefill and 64 SM100 GPUs for Decode (each within one scale-up domain), reproducible via `run_sweep.sh` in the repo; see `eval/README.md` for evaluation benchmarks."""))
+DOC.append(('fig',
+"figs/deepinfer-offline_prefill_benchmark.png",
+"图 3 · Prefill：非缓存输入吞吐 vs. 时延（取自原知乎文章）。配置：EP4DP4｜384+32 专家｜上下文 131,072｜Decoder Bounded Replay（140 tokens）。横轴为单步 prefill 时延（ms），纵轴为每 GPU 非缓存输入吞吐（tokens/s）；点标注为每个 DP rank 的 prefill 批大小（tokens），从 4,096 到 65,536。批大小增至 32,768 后吞吐趋于饱和（约 88K tokens/s/GPU）。",
+"Figure 3 · Prefill: non-cached input throughput vs. latency (from the original Zhihu post). Configuration: EP4DP4 | 384+32 experts | context 131,072 | Decoder Bounded Replay (140 tokens). X-axis: latency per prefill step (ms); Y-axis: non-cached input throughput per GPU (tokens/s); point labels denote prefill batch size per DP rank (tokens), from 4,096 to 65,536. Throughput saturates at roughly 88K tokens/s/GPU once the batch size reaches 32,768."))
 
 # ---------------- DeepSeek Recipe ----------------
 DOC.append(('h2', "DeepSeek Recipe", "DeepSeek Recipe", "s2"))
@@ -422,8 +434,9 @@ html_doc = f"""<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
     <b>整体架构与关键实现</b>：三大设计目标、并行策略、DeepSeek Recipe 编解码、
     四类负载均衡器与自动扩缩容、KVCache Storage（Block/SWA、3FS）、SWA Bounded Replay、
     DSpark 投机解码、异步调度与结构化输出。<br><br>
-    说明：① 中文为<b>原文</b>，英文为对照<b>译文</b>；② 「架构示意图」取自原知乎文章（图床有防盗链，本页经截图方式收录）；
-    ③ 原文「线上统计数据」「离线基准」两节为性能图表，本页据公开报道的官方数据重建了统计表；
+    说明：① 中文为<b>原文</b>，英文为对照<b>译文</b>；② 原文全部三张图（架构示意图、线上运行数据、
+    离线基准 Prefill 吞吐曲线）均以截图方式收录自原知乎文章（图床有防盗链）；
+    ③ 线上运行数据一节另附图内容的双语转录表（数值已逐一核对）；
     ④ 专有名词（EP/DP/SWA/KV/EPLB/MoE 等）保留英文，并在首次出现处给出中文译名。
   </div>
 </div>
