@@ -95,6 +95,7 @@ Chrome headless --print-to-pdf  → 各版本 PDF
 | 文件 | 作用 |
 |---|---|
 | `scripts/build_deepinfer.py` | 翻译并生成《DeepSeek V4.1 Flash 推理部署技术问答》中英对照 HTML |
+| `scripts/build_zhihu_report.py` | 翻译并生成《DeepSeek V4.1 Flash 大规模推理部署实践》（知乎技术报告）中英对照 HTML（中文原文在上、英文译文在下） |
 
 ---
 
@@ -111,9 +112,23 @@ Chrome headless --print-to-pdf  → 各版本 PDF
 
 保真度说明：英文原文取自官方文档，未作改写；中文为对照译文，专有名词保留英文并首次出现处给出中文译名。
 
+## 6. DeepSeek V4.1 Flash 大规模推理部署实践（知乎技术报告，新增）
+
+> 译自 DeepSeek 官方知乎号于 **2026-10-20** 发布的技术报告
+> [《DeepSeek V4.1 Flash 大规模推理部署实践》](https://zhuanlan.zhihu.com/p/2095560295930508953)。
+> 这是 DeepSeek 在开源 DeepInfer / deepseek-recipe 当日发布的**正式技术报告**（非论文、非模型技术报告 PDF），
+> 系统阐述 V4.1 Flash 推理系统的整体架构与关键实现。
+
+在线页面：[`DeepSeek-V4.1-Flash-大规模推理部署实践-中英对照.html`](DeepSeek-V4.1-Flash-大规模推理部署实践-中英对照.html)
+PDF：[`pdf/DeepSeek-V4.1-Flash-大规模推理部署实践-中英对照.pdf`](pdf/DeepSeek-V4.1-Flash-大规模推理部署实践-中英对照.pdf)
+
+涵盖：三大设计目标、并行策略、DeepSeek Recipe 编解码（API 多协议适配 / Tokenizer 加速 / 流式输出解析）、四类负载均衡器与自动扩缩容、KVCache Storage（Block/SWA、3FS 分布式文件系统）、SWA Bounded Replay、DSpark 投机解码、异步调度（零开销批调度器）、结构化输出，以及 6 篇参考文献。
+
+保真度说明：① 中文为**原文**、英文为对照**译文**；② 原文「架构示意图」因知乎图床防盗链无法内联，已用译注说明；③ 原文「线上统计数据」「离线基准」两节为性能图表，本页据公开报道中的官方数据重建了统计表；④ 专有名词（EP/DP/SWA/KV/EPLB/MoE 等）保留英文并首次出现处给出中文译名。
+
 ---
 
-## 6. 免责声明
+## 7. 免责声明
 
 - 原报告著作权归 **DeepSeek-AI** 所有。本仓库收录官方原文以方便查阅，并提供**非官方**的中文译本与重排版，
   **仅供学习与技术交流**，不得用于商业用途。
