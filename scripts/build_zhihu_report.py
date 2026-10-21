@@ -175,7 +175,7 @@ DOC.append(('p',
 DOC.append(('h3', "Vision Encoder Load Balancer", "Vision Encoder Load Balancer", "s3-3"))
 DOC.append(('p',
 "对于图片的路由以单台机器为单位，由 prefill 机器随机选中一台部署有卡数个 vision encoder 的机器，在这台机器上，将图片交由当前处理图片 patch 数目（由宽高直接算出，`(width/patch_size) × (height/patch_size)`）最少的卡的处理生成 embedding。",
-"""Image routing is done per machine: a prefill machine randomly selects a machine that has several vision encoders deployed per GPU, and on that machine the image is handed to the GPU currently processing the fewest image patches (computed directly from width and height as `(width/patch_size) × (height/patch_size)`) to generate the embedding."""))
+"""Image routing is done per machine: a prefill machine randomly selects a machine that has as many vision encoders deployed as it has GPUs (one vision encoder per GPU), and on that machine the image is handed to the GPU currently processing the fewest image patches (computed directly from width and height as `(width/patch_size) × (height/patch_size)`) to generate the embedding."""))
 
 DOC.append(('h3', "Expert-Parallel Load Balancer", "Expert-Parallel Load Balancer", "s3-4"))
 DOC.append(('p',
