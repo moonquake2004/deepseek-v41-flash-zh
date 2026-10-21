@@ -65,9 +65,10 @@ DOC.append(('p',
 DOC.append(('p',
 "在用户请求进入推理前后，需要进行 API 协议与 token 序列之间的转换，**DeepSeek Recipe** 支持主流大模型 API 协议与模型 token 序列之间高效、准确的编解码，通过 special token 分段和并行的策略，避免 special token 注入的同时，降低长文本 tokenize 的处理时延。",
 """Before and after a user request enters inference, conversions between API protocols and token sequences are required. **DeepSeek Recipe** supports efficient, accurate encoding and decoding between mainstream LLM API protocols and model token sequences, and through special-token segmentation and parallelization it both avoids special-token injection and reduces the processing latency of tokenizing long texts."""))
-DOC.append(('note',
-"原文在「推理系统设计概览」小节内嵌有一张**架构示意图**，托管于知乎图床且带有防盗链，无法在本页内联展示。请访问原知乎文章查看该图。",
-"""The original article embeds an **architecture diagram** inside this section. It is hosted on Zhihu's image CDN with hotlink protection and cannot be inlined here; please view the original Zhihu post for the figure."""))
+DOC.append(('fig',
+"figs/deepinfer-architecture_overview.png",
+"图 1 · DeepSeek V4.1 Flash 推理系统整体架构（取自原知乎文章；黑色箭头为请求流，蓝色箭头为 KVCache 流）。",
+"Figure 1 · Overall architecture of the DeepSeek V4.1 Flash inference system (from the original Zhihu post; black arrows denote request flow, blue arrows denote KVCache flow)."))
 
 DOC.append(('h3', "并行策略", "Parallelism Strategy", "s1-1"))
 DOC.append(('list',
@@ -379,6 +380,10 @@ def render_block(b):
         return f'<h3 id="{b[3]}">{b[1]}<span class="en">{b[2]}</span></h3>'
     if t == 'note':
         return f'<div class="note"><b>译注：</b>{md(b[1])}<br><span class="en" style="border:none;padding-left:0;color:#374151">{md(b[2])}</span></div>'
+    if t == 'fig':
+        return (f'<figure><img src="{b[1]}" alt="{b[2]}">'
+                f'<figcaption><span class="cap-zh">{md(b[2])}</span><br>'
+                f'<span class="en">{md(b[3])}</span></figcaption></figure>')
     if t == 'table':
         h_zh, h_en, rows_zh, rows_en = b[1], b[2], b[3], b[4]
         thead = ''.join(f'<th>{md(z)}<br><span style="font-weight:400;color:#6b7280;font-size:7.5pt">{md(e)}</span></th>' for z, e in zip(h_zh, h_en))
@@ -417,7 +422,7 @@ html_doc = f"""<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
     <b>整体架构与关键实现</b>：三大设计目标、并行策略、DeepSeek Recipe 编解码、
     四类负载均衡器与自动扩缩容、KVCache Storage（Block/SWA、3FS）、SWA Bounded Replay、
     DSpark 投机解码、异步调度与结构化输出。<br><br>
-    说明：① 中文为<b>原文</b>，英文为对照<b>译文</b>；② 原文「架构示意图」因知乎图床防盗链无法内联，已用译注说明；
+    说明：① 中文为<b>原文</b>，英文为对照<b>译文</b>；② 「架构示意图」取自原知乎文章（图床有防盗链，本页经截图方式收录）；
     ③ 原文「线上统计数据」「离线基准」两节为性能图表，本页据公开报道的官方数据重建了统计表；
     ④ 专有名词（EP/DP/SWA/KV/EPLB/MoE 等）保留英文，并在首次出现处给出中文译名。
   </div>
